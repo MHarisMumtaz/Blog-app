@@ -14,6 +14,14 @@
     color: white;
 
 }
+.help-block{
+  margin: 0 !important;
+  color: #ff6a6a !important;
+  font-size: 13px !important;
+}
+.warning{
+  box-shadow: 0px 0px 12px red !important;
+}
 .bg {
     position: fixed;
     z-index: -1;
@@ -38,7 +46,7 @@
   padding: 10px;
   border: 1px solid grey;
   border: 1px solid #cccccc;
-  height: 500px;
+  height: 540px;
   border-radius: 7px;
   box-shadow: 0px 0px 6px;
   background-color: #222222;

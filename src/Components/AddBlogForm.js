@@ -14,49 +14,111 @@ const FieldGroup = ({ id, label, help, ...props }) => {
   return (
     <FormGroup controlId={id}>
       <ControlLabel className="controlLabel">{label}</ControlLabel>
-      <FormControl {...props} />
       {help && <HelpBlock>{help}</HelpBlock>}
+      <FormControl {...props} />
     </FormGroup>
   );
 }
 
 class AddBlogForm extends Component {
 	
+	constructor(props){
+		super(props);
+		this.state = {
+			topic   : '',
+			author  : '',
+			article : '',
+			formErrors : {}
+		};
+	}
+
 	onClickSubmit(){
+		let formErrors = {};
+		if (this.state.topic=="") {
+			formErrors.topicRequired = true;
+			this.setState({formErrors : formErrors});
+		}
+		if (this.state.author=="") {
+			formErrors.authorRequired = true;
+			this.setState({formErrors : formErrors});
+		}
+		if (this.state.article=="") {
+			formErrors.articleRequired = true;
+			this.setState({formErrors : formErrors});
+		}
+		if (formErrors.topicRequired || formErrors.authorRequired || formErrors.articleRequired) {
+			return;
+		}
+		this.setState({formErrors: {} });
 		let blog = {
-			topic   : this.topicInput.value,
-			author  : this.authorInput.value,
-			article : this.articleInput.value
+			topic   : this.state.topic,
+			author  : this.state.author,
+			article : this.state.article
 		};
 		this.props.addBlog(blog);
 		this.props.history.push("/");
 	}
-     render(){ return (
+    
+    handleUserInput (e) {
+	  const name = e.target.name;
+	  const value = e.target.value;
+	  this.setState({[name]: value},() => { this.validateField(name, value) });
+	}
+
+	validateField(fieldName,value){
+		let errors = this.state.formErrors;
+		switch(fieldName){
+			case "topic":
+			   var notInRange = value.length < 3 || value.length > 50;
+			   errors.topicNotInRange = notInRange;
+			break;
+			case "author":
+			   var notInRange = value.length < 3 || value.length > 15;
+			   errors.authorNotInRange = notInRange;
+			break;
+			case "article":
+			   var notInRange = value.length < 10 || value.length > 400;
+			   errors.articleNotInRange = notInRange;
+			break;
+		}
+		this.setState({formErrors : errors});
+	}
+
+    render(){ return (
          <div className="AddBlog">
              <form>
              	<div className="col-md-12">
+
 	                <FieldGroup
 				      id="formControlsTopic"
+				      name="topic"
 				      type="text"
 				      label="Topic"
 				      placeholder="Enter Topic"
-				      inputRef={input => this.topicInput = input}
+				      value={this.state.topic}
+				      help={this.state.formErrors.topicRequired ? "*required" : (this.state.formErrors.topicNotInRange ? "Length should be > 3 and < 50" : "")}
+				      onChange={(event) => this.handleUserInput(event)}
 				    />
 			    </div>
 	            <div className="col-md-6">
 				    <FieldGroup
 				      id="formControlsText"
+				      name="author"
 				      type="text"
 				      label="Author"
 				      placeholder="Enter Author"
-				      inputRef={input => this.authorInput = input}
+				      value={this.state.author}
+				      help={this.state.formErrors.authorRequired ? "*required" :  (this.state.formErrors.authorNotInRange ? "Length should be > 3 and < 13" : "")}
+				      onChange={(event) => this.handleUserInput(event)}
 				    />
 			    </div>
 			 	
 			 	<div className="col-md-12">
 				    <FormGroup controlId="formControlsBlog">
 				      <ControlLabel className="controlLabel">Article</ControlLabel>
-				      <FormControl inputRef={input => this.articleInput = input} componentClass="textarea" cols={20} rows={11} placeholder="Enter Blog here" />
+				       {this.state.formErrors.authorRequired && <HelpBlock>*required</HelpBlock>}
+				       {this.state.formErrors.articleNotInRange && <HelpBlock>Max Characters 400</HelpBlock>}
+				      <FormControl name="article" value={this.state.article} onChange={(event) => this.handleUserInput(event)} componentClass="textarea" cols={20} rows={11} placeholder="Enter Blog here" />
 				    </FormGroup>
 
 			    </div>

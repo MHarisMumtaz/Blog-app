@@ -17,7 +17,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-
 class ViewBlog extends Component {
 
 	onPostCommentClick(blogId){
