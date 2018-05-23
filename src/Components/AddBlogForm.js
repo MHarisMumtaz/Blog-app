@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {form,FormGroup,ControlLabel,FormControl,Button,HelpBlock} from 'react-bootstrap';
+import ReactQuill from 'react-quill'; // ES6
 
 import { connect } from "react-redux";
 import { addBlog } from "../Actions/Actions";
@@ -28,7 +29,22 @@ class AddBlogForm extends Component {
 			topic   : '',
 			author  : '',
 			article : '',
-			formErrors : {}
+			formErrors : {},
+			modules :{
+			toolbar: [
+				[{ 'header': [1, 2, false] }],
+				['bold', 'italic', 'underline','strike', 'blockquote'],
+				[{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+				['link', 'image'],
+				['clean']
+				]
+			}, 
+			formats :[
+			    'header',
+			    'bold', 'italic', 'underline', 'strike', 'blockquote',
+			    'list', 'bullet', 'indent',
+			    'link', 'image'
+			]
 		};
 	}
 
@@ -86,7 +102,12 @@ class AddBlogForm extends Component {
 
     render(){ return (
          <div className="AddBlog">
+
              <form>
+
+				<div className="col-md-12">
+			    	<Button type="button" className="btn btn-success pull-right" onClick={this.onClickSubmit.bind(this)}>Submit</Button>
+			    </div>
              	<div className="col-md-12">
 
 	                <FieldGroup
@@ -114,16 +135,14 @@ class AddBlogForm extends Component {
 			    </div>
 			 	
 			 	<div className="col-md-12">
-				    <FormGroup controlId="formControlsBlog">
+			 		<ReactQuill value={this.state.article} modules={this.state.modules} formats={this.state.formats} />
+				    {/*<FormGroup controlId="formControlsBlog">
 				      <ControlLabel className="controlLabel">Article</ControlLabel>
 				       {this.state.formErrors.authorRequired && <HelpBlock>*required</HelpBlock>}
 				       {this.state.formErrors.articleNotInRange && <HelpBlock>Max Characters 400</HelpBlock>}
 				      <FormControl name="article" value={this.state.article} onChange={(event) => this.handleUserInput(event)} componentClass="textarea" cols={20} rows={11} placeholder="Enter Blog here" />
-				    </FormGroup>
+				    </FormGroup>*/}
 
-			    </div>
-			    <div className="col-md-12">
-			    <Button type="button" onClick={this.onClickSubmit.bind(this)}>Submit</Button>
 			    </div>
 			  </form>
 

@@ -1,16 +1,27 @@
-import React from 'react';
+import React , { Component } from 'react';
 import { Link } from 'react-router-dom';
-const NavBar = () => {
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+  return { 
+    loginUser : state.users.loginUser
+   };
+};
+
+class NavBar extends Component {
+    render(){
       return (
           	<nav className="navbar navbar-inverse">
              <div className="container-fluid">
-              
                <ul className="nav navbar-nav">
                  <li className="active"><Link to={'/'}>Home</Link></li>
-                 <li><Link to={'/AddBlog'}>Add Blog</Link></li>
+                 { this.props.loginUser && <li><Link to={'/add-blog'}>Add Blog</Link></li>}
+                 { !this.props.loginUser && <li><Link to={'/user-login'}>Login</Link></li>}
+                 { this.props.loginUser && <li><Link to={'/'}>{this.props.loginUser.name}</Link></li> }
                </ul>
              </div>
            </nav>
       );
+    }
 }
-export default NavBar;
+export default connect(mapStateToProps,null)(NavBar);

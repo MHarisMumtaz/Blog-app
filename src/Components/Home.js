@@ -3,6 +3,7 @@ import BlogBox from './BlogBox';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 
+
 const mapStateToProps = state => {
   return { blogs: state.blogs };
 };

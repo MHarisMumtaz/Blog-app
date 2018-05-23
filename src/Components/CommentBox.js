@@ -8,7 +8,7 @@ const CommentBox = (props) => {
 			</div>
 				<a className="col-md-2 userName">Anonymous</a><p className="col-md-8 pull-right commentDate">{comment.createdOn.toLocaleString()}</p>
 			<div className="col-md-10 commentText">
-				{window.emojify.replace(comment.text)}
+				{comment.text}
 			</div>
 		</div>
       );
