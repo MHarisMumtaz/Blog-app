@@ -10,6 +10,11 @@ const mapDispatchToProps = dispatch => {
     addBlog: article => dispatch(addBlog(article))
   };
 };
+const mapStateToProps = state => {
+  return { 
+  	loginUser: state.users.loginUser
+   };
+};
 
 const FieldGroup = ({ id, label, help, ...props }) => {
   return (
@@ -54,10 +59,6 @@ class AddBlogForm extends Component {
 			formErrors.topicRequired = true;
 			this.setState({formErrors : formErrors});
 		}
-		if (this.state.author=="") {
-			formErrors.authorRequired = true;
-			this.setState({formErrors : formErrors});
-		}
 		if (this.state.article=="") {
 			formErrors.articleRequired = true;
 			this.setState({formErrors : formErrors});
@@ -68,7 +69,7 @@ class AddBlogForm extends Component {
 		this.setState({formErrors: {} });
 		let blog = {
 			topic   : this.state.topic,
-			author  : this.state.author,
+			author  : this.props.loginUser.name,
 			article : this.state.article
 		};
 		this.props.addBlog(blog);
@@ -81,20 +82,16 @@ class AddBlogForm extends Component {
 	  this.setState({[name]: value},() => { this.validateField(name, value) });
 	}
 
+	handleRichTextChange(value) {
+    	this.setState({ article: value })
+  	}
+
 	validateField(fieldName,value){
 		let errors = this.state.formErrors;
 		switch(fieldName){
 			case "topic":
 			   var notInRange = value.length < 3 || value.length > 50;
 			   errors.topicNotInRange = notInRange;
-			break;
-			case "author":
-			   var notInRange = value.length < 3 || value.length > 15;
-			   errors.authorNotInRange = notInRange;
-			break;
-			case "article":
-			   var notInRange = value.length < 10 || value.length > 400;
-			   errors.articleNotInRange = notInRange;
 			break;
 		}
 		this.setState({formErrors : errors});
@@ -121,7 +118,7 @@ class AddBlogForm extends Component {
 				      onChange={(event) => this.handleUserInput(event)}
 				    />
 			    </div>
-	            <div className="col-md-6">
+	         {/*   <div className="col-md-6">
 				    <FieldGroup
 				      id="formControlsText"
 				      name="author"
@@ -132,10 +129,10 @@ class AddBlogForm extends Component {
 				      help={this.state.formErrors.authorRequired ? "*required" :  (this.state.formErrors.authorNotInRange ? "Length should be > 3 and < 13" : "")}
 				      onChange={(event) => this.handleUserInput(event)}
 				    />
-			    </div>
+			    </div>*/}
 			 	
 			 	<div className="col-md-12">
-			 		<ReactQuill value={this.state.article} modules={this.state.modules} formats={this.state.formats} />
+			 		<ReactQuill value={this.state.article} modules={this.state.modules} onChange={this.handleRichTextChange.bind(this)} formats={this.state.formats} />
 				    {/*<FormGroup controlId="formControlsBlog">
 				      <ControlLabel className="controlLabel">Article</ControlLabel>
 				       {this.state.formErrors.authorRequired && <HelpBlock>*required</HelpBlock>}
@@ -150,4 +147,4 @@ class AddBlogForm extends Component {
       );}
 }
 
-export default connect(null, mapDispatchToProps)(AddBlogForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddBlogForm);

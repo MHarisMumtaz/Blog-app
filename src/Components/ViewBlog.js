@@ -36,14 +36,20 @@ class ViewBlog extends Component {
 	  	this.onPostCommentClick(blogId);
 	  }
 	}
+	componentDidMount() {
+		let blog = this.props.blogs.find((b)=> b.id == this.props.match.params.id);
+	   document.getElementById("cont").innerHTML = blog.article;
+	   document.getElementById("author").innerText = "Author: "+ blog.author;
+	   document.getElementById("topic").innerText = blog.topic;
+	}
 	render(){
-		const blog = this.props.blogs.find((b)=> b.id == this.props.match.params.id);
+		const blogId = this.props.match.params.id;
 		const comments = this.props.comments.filter((c) => c.blogId == this.props.match.params.id);
 		return (
 			<div className="col-md-12">
-	    		<h1>{blog.topic}</h1>
-	    		<h5>Author: {blog.author}</h5>
-	    		<p>{blog.article}</p>
+	    		<h1 id="topic"></h1>
+	    		<h5 id="author"></h5>
+	    		<p id="cont"></p>
 	    		<div className="container">
 	    		{ comments.map(comment => <CommentBox key={comment.id} comment={comment} /> )}
 		    	
@@ -52,8 +58,11 @@ class ViewBlog extends Component {
 		    			</div>
 		    			<div className="col-md-10">
 		    			{/*<input type="text" className="form-control userNameInput" placeHolder="Enter Name"  />*/}
-		    				 <FormControl inputRef={input => this.commentInput = input}  onKeyPress={(event)=>this.onEnter(event,blog.id)} className="textArea" componentClass="textarea" cols={100} rows={2} placeholder="comment" />
-		    				<button type="button" className="btn btn-default pull-right post" onClick={()=>this.onPostCommentClick(blog.id)}>Post</button>
+		    				 <FormControl inputRef={input => this.commentInput = input}  onKeyPress={(event)=>this.onEnter(event,blogId)} className="textArea" componentClass="textarea" cols={100} rows={2} placeholder="comment" />
+		    				
+		    			</div>
+		    			<div className="col-md-12">
+		    				<button type="button" className="btn btn-default pull-right" onClick={()=>this.onPostCommentClick(blogId)}>Post</button>
 		    			</div>
 		    		</form>
 	    		</div>
