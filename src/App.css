@@ -2,13 +2,12 @@
   text-align: center;
 }
 .box {
+    padding: 0px;
     height: 200px;
     margin: 7px;
     margin-left: 30px;
     border: 1px solid #bbbbbb;
     box-shadow: 0px 0px 20px #8eacc6;
-    text-align: center;
-    background-size: cover;
 }
 .box:hover{
   box-shadow: 0px 0px 30px #6f6767;
@@ -75,7 +74,10 @@
   background-size: cover;
 }
 .blogTitle{
-      background-color: #7c8288;
+    padding: 10px;
+    width: 100%;
+    margin-top: 0px;
+    background-color: #7c8288;
     box-shadow: 0px 0px 3px #7c8288;
 }
 .readMe{
@@ -160,12 +162,20 @@
     padding: 75px;
     box-shadow: 0px 0px 30px grey;
 }
-.card button{
+.googleSignin{
+    text-align: right;
+    margin-left: -12px;
+}
+.googleLabel{
+  text-align: left;
+    margin-top: 10px;
+}
+.googleSignin button{
   background-color: blue !important;
   background-image: url(./google.png) !important;
   background-repeat: no-repeat !important;
   background-size: 38px !important;
-  width: 140px !important;
+  width: 130px !important;
   text-align: right;
   padding-right: 23px !important;
   font-family: arial !important;
@@ -177,4 +187,20 @@
 }
 .ql-container{
       min-height: 250px !important;
+}
+.fbSignin{
+  top: 15px;
+}
+.fbSignBtn{
+    background-image: url(./fb.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 30px !important;
+    background-position-y: 4px;
+    text-align: right;
+    background-color: #014686;
+    color: white;
+    width: 131px;
+    height: 41px;
+    font-size: 1.2em;
+    margin-left: -23px;
 }
