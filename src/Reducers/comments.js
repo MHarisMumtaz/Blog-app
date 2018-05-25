@@ -1,7 +1,7 @@
 import { ADD_COMMENT } from "../Constants/Action-Types";
 
 const blogComments = [
-	{id:1, blogId:1, text: "this is my comment", createdOn: new Date()}
+	{id:0, blogId:1, text: "this is my comment", createdOn: new Date(), user:"1"}
 ]
 
 const comments = (state = blogComments, action) => {

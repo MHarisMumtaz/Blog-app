@@ -7,7 +7,8 @@ import { addComment } from "../Actions/Actions";
 const mapStateToProps = state => {
   return { 
   	blogs: state.blogs,
-  	comments : state.comments
+  	comments : state.comments,
+  	loginUser: state.users.loginUser
    };
 };
 
@@ -22,10 +23,11 @@ class ViewBlog extends Component {
 	onPostCommentClick(blogId){
 		var text = this.commentInput.value;
 		if (text=="" || text==null || text.replace(/(\r\n\t|\n|\r\t)/gm,"")=="") { return; }
-		let comment = { 
+		let comment = {
 			blogId:blogId, 
 			text: text, 
-			createdOn: new Date()
+			createdOn: new Date(),
+			user : this.props.loginUser.id
 		}
 		this.props.addComment(comment);
 		this.commentInput.value = "";
