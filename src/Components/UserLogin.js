@@ -24,6 +24,7 @@ class UserLogin extends Component{
 		this.props.history.push('add-blog');
 	}
 	onFbLoginSuccess(response){
+		response.imageUrl = response.picture.data.url;
 		this.props.addUser(response);
 		this.props.setLoginUser(response);
 		this.props.history.push('/');

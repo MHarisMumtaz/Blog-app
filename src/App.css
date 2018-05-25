@@ -188,8 +188,9 @@
 .ql-container{
       min-height: 250px !important;
 }
-.fbSignin{
+.fbSignIn{
   top: 15px;
+  margin-top: 10px;
 }
 .fbSignBtn{
     background-image: url(./fb.png) !important;

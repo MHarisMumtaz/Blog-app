@@ -10,9 +10,13 @@ const mapStateToProps = state => {
 const CommentBox = (props) => {
       	const comment = props.comment;
       	const user = props.users.all.find((b)=> b.id == props.comment.user);
+      	const divStyle = {
+		  color: 'blue',
+		  backgroundImage: 'url('+user.imageUrl+')'
+		};
       return (
         <div className="col-md-12 commentBox" key={comment.id}>
-			<div className="col-md-2 avatar"> 
+			<div className="col-md-2 avatar" style={divStyle}> 
 			</div>
 				<a className="col-md-2 userName">{user.name}</a><p className="col-md-8 pull-right commentDate">{comment.createdOn.toLocaleString()}</p>
 			<div className="col-md-10 commentText">

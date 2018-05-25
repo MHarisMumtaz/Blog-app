@@ -1,7 +1,7 @@
 import { ADD_USER, SET_LOGIN_USER } from "../Constants/Action-Types";
 
 const usersInitialState = {
-	all : [{id:'1',name:'Ahmed'}],
+	all : [{id:'1',name:'Ahmed',imageUrl:'./user.png'}],
 	loginUser : null
 }
 
