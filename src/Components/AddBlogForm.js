@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import {form,FormGroup,ControlLabel,FormControl,Button,HelpBlock} from 'react-bootstrap';
+
 import ReactQuill from 'react-quill'; // ES6
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css'
 
 import { connect } from "react-redux";
 import { addBlog } from "../Actions/Actions";
+
+
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -19,7 +24,7 @@ const mapStateToProps = state => {
 const FieldGroup = ({ id, label, help, ...props }) => {
   return (
     <FormGroup controlId={id}>
-      <ControlLabel className="controlLabel">{label}</ControlLabel>
+     {/* <ControlLabel className="controlLabel">{label}</ControlLabel>*/}
       {help && <HelpBlock>{help}</HelpBlock>}
       <FormControl {...props} />
     </FormGroup>
@@ -32,6 +37,7 @@ class AddBlogForm extends Component {
 		super(props);
 		this.state = {
 			topic   : '',
+			tags    : [],
 			author  : '',
 			article : '',
 			formErrors : {},
@@ -70,7 +76,8 @@ class AddBlogForm extends Component {
 		let blog = {
 			topic   : this.state.topic,
 			author  : this.props.loginUser.name,
-			article : this.state.article
+			article : this.state.article,
+			tags    : this.state.tags
 		};
 		this.props.addBlog(blog);
 		this.props.history.push("/");
@@ -86,6 +93,9 @@ class AddBlogForm extends Component {
     	this.setState({ article: value })
   	}
 
+  	handleTagsChange(value){
+  		this.setState({tags: value});
+  	}
 	validateField(fieldName,value){
 		let errors = this.state.formErrors;
 		switch(fieldName){
@@ -104,11 +114,14 @@ class AddBlogForm extends Component {
 
              <form>
 
-				<div className="col-md-12">
-			    	<Button type="button" className="btn btn-success pull-right add-blog-btn" onClick={this.onClickSubmit.bind(this)}>Submit</Button>
+				<div className="row">
+					<div className="col-md-12">
+			    		<Button type="button" className="btn btn-success pull-right add-blog-btn" onClick={this.onClickSubmit.bind(this)}>Submit</Button>
+			    	</div>
 			    </div>
-             	<div className="col-md-12">
 
+             	<div className="row">
+             		<div className="col-md-12">
 	                <FieldGroup
 				      id="formControlsTopic"
 				      name="topic"
@@ -119,29 +132,15 @@ class AddBlogForm extends Component {
 				      help={this.state.formErrors.topicRequired ? "*required" : (this.state.formErrors.topicNotInRange ? "Length should be > 3 and < 50" : "")}
 				      onChange={(event) => this.handleUserInput(event)}
 				    />
+				    </div>
 			    </div>
-	         {/*   <div className="col-md-6">
-				    <FieldGroup
-				      id="formControlsText"
-				      name="author"
-				      type="text"
-				      label="Author"
-				      placeholder="Enter Author"
-				      value={this.state.author}
-				      help={this.state.formErrors.authorRequired ? "*required" :  (this.state.formErrors.authorNotInRange ? "Length should be > 3 and < 13" : "")}
-				      onChange={(event) => this.handleUserInput(event)}
-				    />
-			    </div>*/}
+
+			    <div className="col-md-12 tags-inp">
+					<TagsInput value={this.state.tags} onChange={this.handleTagsChange.bind(this)} />
+			    </div>
 			 	
 			 	<div className="col-md-12">
 			 		<ReactQuill value={this.state.article} modules={this.state.modules} onChange={this.handleRichTextChange.bind(this)} formats={this.state.formats} />
-				    {/*<FormGroup controlId="formControlsBlog">
-				      <ControlLabel className="controlLabel">Article</ControlLabel>
-				       {this.state.formErrors.authorRequired && <HelpBlock>*required</HelpBlock>}
-				       {this.state.formErrors.articleNotInRange && <HelpBlock>Max Characters 400</HelpBlock>}
-				      <FormControl name="article" value={this.state.article} onChange={(event) => this.handleUserInput(event)} componentClass="textarea" cols={20} rows={11} placeholder="Enter Blog here" />
-				    </FormGroup>*/}
-
 			    </div>
 			  </form>
 

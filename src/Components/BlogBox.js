@@ -7,8 +7,11 @@ const BlogBox = (props) => {
       return span.textContent || span.innerText;
     };
 	return (
-		<div className="col-md-8 box">
+		<div className="col-md-10 box">
     		<h3 className="blogTitle">{props.blog.topic}</h3>
+        <div className="col-md-12">
+          {props.blog.tags.map((tag)=> <span key={tag} className="label label-default tag-badge">{tag}</span> )} 
+        </div>
     		<div className="col-md-12 boxText">
     			{extractContent(props.blog.article)}
     		</div>

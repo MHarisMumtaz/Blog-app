@@ -16,10 +16,10 @@ const CommentBox = (props) => {
 		};
       return (
         <div className="row commentBox" key={comment.id}>
-			<div className="col-md-1 avatar" style={user.imageUrl && divStyle}></div>
-			<a className="col-md-2 userName">{user.name}</a>
-			<p className="col-md-8 pull-right commentDate">{comment.createdOn.toLocaleString()}</p>
-			<div className="col-md-10 commentText">
+			<div className="col-md-1 col-sm-2 col-xs-2 avatar" style={user.imageUrl && divStyle}></div>
+			<a className="col-md-3 col-sm-5 col-xs-6 userName">{user.name}</a>
+			<p className="col-md-8 col-sm-5 col-xs-4 pull-right commentDate">{comment.createdOn.toLocaleString()}</p>
+			<div className="col-md-10 col-sm-10 col-xs-8 commentText">
 				{comment.text}
 			</div>
 		</div>
