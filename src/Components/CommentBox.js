@@ -15,10 +15,10 @@ const CommentBox = (props) => {
 		  backgroundImage: 'url('+user.imageUrl+')'
 		};
       return (
-        <div className="col-md-12 commentBox" key={comment.id}>
-			<div className="col-md-2 avatar" style={divStyle}> 
-			</div>
-				<a className="col-md-2 userName">{user.name}</a><p className="col-md-8 pull-right commentDate">{comment.createdOn.toLocaleString()}</p>
+        <div className="row commentBox" key={comment.id}>
+			<div className="col-md-1 avatar" style={user.imageUrl && divStyle}></div>
+			<a className="col-md-2 userName">{user.name}</a>
+			<p className="col-md-8 pull-right commentDate">{comment.createdOn.toLocaleString()}</p>
 			<div className="col-md-10 commentText">
 				{comment.text}
 			</div>

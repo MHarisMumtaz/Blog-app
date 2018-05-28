@@ -42,39 +42,40 @@ class UserLogin extends Component{
 		return(
 			<div className="card card-container login-form">
 
-	            
-	            <div className="col-md-12">
-	            	<div className="col-md-6">
-	            		<label className="googleLabel">Google Sign in</label>
-	            	</div>
-	            	<div className="col-md-6 googleSignin">
-            		<GoogleLogin
-					    clientId="433515739830-d10eui0lideja33jp2kho88da47dii98.apps.googleusercontent.com"
-					    buttonText="Sign In"
-					    onSuccess={this.onGoogleLoginSuccess.bind(this)}
-					    onFailure={this.onGoogleLoginFail.bind(this)}
-					  />
+	            <div className="row">
+	            	<div className="row">
+		            	<div className="col-md-6">
+		            		<label className="googleLabel">Google Sign in</label>
+		            	</div>
+		            	<div className="col-md-6 googleSignin">
+	            		<GoogleLogin
+						    clientId="433515739830-d10eui0lideja33jp2kho88da47dii98.apps.googleusercontent.com"
+						    buttonText="Sign In"
+						    onSuccess={this.onGoogleLoginSuccess.bind(this)}
+						    onFailure={this.onGoogleLoginFail.bind(this)}
+						  />
+						</div>
 					</div>
-				</div>
-				<div className="col-md-12 fbSignIn">
-					{/*autoLoad={true}*/}
-					<div className="col-md-6">
-	            		<label className="googleLabel">Facebook Sign in</label>
-	            	</div>
-	            	<div className="col-md-6">
-					 	<FacebookLogin
-						    appId="1667110263342356"
-						    
-						    fields="name,email,picture"
-						    onClick={this.onFbLoginFail.bind(this)}
-						    callback={this.onFbLoginSuccess.bind(this)}
-						    icon="fa-facebook"
-						    render={renderProps => (
-						    <button className="fbSignBtn btn btn-default" onClick={renderProps.onClick}>Facebook</button>
-						  )}
-					    />
+					<div className="row fbSignIn">
+						{/*autoLoad={true}*/}
+						<div className="col-md-7">
+		            		<label className="googleLabel">Facebook Sign in</label>
+		            	</div>
+		            	<div className="col-md-5">
+						 	<FacebookLogin
+							    appId="1667110263342356"
+							    
+							    fields="name,email,picture"
+							    onClick={this.onFbLoginFail.bind(this)}
+							    callback={this.onFbLoginSuccess.bind(this)}
+							    icon="fa-facebook"
+							    render={renderProps => (
+							    <button className="fbSignBtn btn btn-default" onClick={renderProps.onClick}>Facebook</button>
+							  )}
+						    />
+						</div>
 					</div>
-				</div>
+	            </div>
         	</div>
 		);
 	}

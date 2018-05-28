@@ -23,14 +23,18 @@ class ViewBlog extends Component {
 	onPostCommentClick(blogId){
 		var text = this.commentInput.value;
 		if (text=="" || text==null || text.replace(/(\r\n\t|\n|\r\t)/gm,"")=="") { return; }
-		let comment = {
-			blogId:blogId, 
-			text: text, 
-			createdOn: new Date(),
-			user : this.props.loginUser.id
+		if (!this.props.loginUser) {
+			this.props.history.push('/user-login');
+		}else{
+			let comment = {
+				blogId:blogId, 
+				text: text, 
+				createdOn: new Date(),
+				user : this.props.loginUser.id
+			}
+			this.props.addComment(comment);
+			this.commentInput.value = "";
 		}
-		this.props.addComment(comment);
-		this.commentInput.value = "";
 	}
 
 	onEnter(e,blogId){
@@ -48,22 +52,22 @@ class ViewBlog extends Component {
 		const blogId = this.props.match.params.id;
 		const comments = this.props.comments.filter((c) => c.blogId == this.props.match.params.id);
 		return (
-			<div className="col-md-12">
-	    		<h1 id="topic"></h1>
-	    		<h5 id="author"></h5>
-	    		<p id="cont"></p>
+			<div className="row">
+	    		<h1 className="col-md-12" id="topic"> </h1>
+	    		<h5 className="col-md-12" id="author"> </h5>
+	    		<p id="cont" className="col-md-12"> </p>
 	    		<div className="container">
 	    		{ comments.map(comment => <CommentBox key={comment.id} comment={comment} /> )}
 		    	
-		    		<form className="col-md-12 commentBox">
-		    			<div className="col-md-2 avatar"> 
+		    		<form className="row commentBox">
+		    			<div className="col-md-1 avatar"> 
 		    			</div>
-		    			<div className="col-md-10">
+		    			<div className="col-md-11">
 		    			{/*<input type="text" className="form-control userNameInput" placeHolder="Enter Name"  />*/}
 		    				 <FormControl inputRef={input => this.commentInput = input}  onKeyPress={(event)=>this.onEnter(event,blogId)} className="textArea" componentClass="textarea" cols={100} rows={2} placeholder="comment" />
 		    				
 		    			</div>
-		    			<div className="col-md-12">
+		    			<div className="col-md-12 post-btn">
 		    				<button type="button" className="btn btn-default pull-right" onClick={()=>this.onPostCommentClick(blogId)}>Post</button>
 		    			</div>
 		    		</form>

@@ -15,8 +15,10 @@ class App extends Component {
          <Provider store={Store}>
             <Router>
                <div>
+               <div className="fixed-top">
                   <Header />
                   <NavBar />
+               </div>
                   <Body />
                   <Footer /> 
                </div>

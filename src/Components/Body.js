@@ -12,7 +12,7 @@ import UserLogin from './UserLogin';
 const Body = (props) => {
 
   	return (
-        <div className="container">
+        <div className="container body">
             <Switch>
               <Route exact path='/' render={(props) => <Home {...props} />} /> />
               <Route exact path='/add-blog' render={(props) => <AddBlogForm {...props} /> }  />

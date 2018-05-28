@@ -93,6 +93,8 @@ class AddBlogForm extends Component {
 			   var notInRange = value.length < 3 || value.length > 50;
 			   errors.topicNotInRange = notInRange;
 			break;
+			default:
+			 break;
 		}
 		this.setState({formErrors : errors});
 	}
@@ -103,7 +105,7 @@ class AddBlogForm extends Component {
              <form>
 
 				<div className="col-md-12">
-			    	<Button type="button" className="btn btn-success pull-right" onClick={this.onClickSubmit.bind(this)}>Submit</Button>
+			    	<Button type="button" className="btn btn-success pull-right add-blog-btn" onClick={this.onClickSubmit.bind(this)}>Submit</Button>
 			    </div>
              	<div className="col-md-12">
 
