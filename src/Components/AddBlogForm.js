@@ -100,7 +100,7 @@ class AddBlogForm extends Component {
 		let errors = this.state.formErrors;
 		switch(fieldName){
 			case "topic":
-			   var notInRange = value.length < 3 || value.length > 50;
+			   var notInRange = value.length < 3 || value.length > 100;
 			   errors.topicNotInRange = notInRange;
 			break;
 			default:

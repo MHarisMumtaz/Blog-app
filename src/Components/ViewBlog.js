@@ -6,7 +6,7 @@ import { addComment } from "../Actions/Actions";
 
 const mapStateToProps = state => {
   return { 
-  	blogs: state.blogs,
+  	blogs: state.blogs.allBlogs,
   	comments : state.comments,
   	loginUser: state.users.loginUser
    };

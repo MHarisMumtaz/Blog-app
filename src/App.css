@@ -432,3 +432,13 @@ ul.social-network {
     border-bottom: 5px solid #d8d7d7;
     font-size: 2em;
 }
+.tag-badge:active {
+  background-color: #3e8e41;
+  box-shadow: 0 0 10px #666;
+  transform: translateY(4px);
+}
+.tag-badge:focused {
+  background-color: #3e8e41;
+  box-shadow: 0 0 10px #666;
+  transform: translateY(4px);
+}
